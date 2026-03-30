@@ -87,6 +87,17 @@ button:hover {
   }
 }
 
+/* Random space fact box */
+.space-fact {
+  margin: 10px 20px 20px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: #333;
+  font-size: 15px;
+}
+
 /* Gallery flex container */
 .gallery {
   display: flex;
@@ -105,9 +116,10 @@ button:hover {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: hidden;  /* Keeps zoomed images inside the card boundary */
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 /* Three columns on wider screens */
@@ -117,11 +129,34 @@ button:hover {
   }
 }
 
+/* Image hover effect: smooth zoom transition */
 .gallery-item img {
   width: 100%;
   height: 200px;
   object-fit: cover;
   border-radius: 4px;
+  /* `transition` makes the zoom smooth over 0.3 seconds */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* When user hovers over the card image, scale it up 8% */
+.gallery-item img:hover {
+  transform: scale(1.08);
+}
+
+/* Video iframe hover effect: same smooth zoom as images */
+.gallery-item iframe {
+  width: 100%;
+  height: 200px;
+  border: 0;
+  border-radius: 4px;
+  /* `transition` makes the zoom smooth over 0.3 seconds */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* When user hovers over the card video, scale it up 8% */
+.gallery-item iframe:hover {
+  transform: scale(1.08);
 }
 
 .gallery-item p {
@@ -141,4 +176,88 @@ button:hover {
 .placeholder-icon {
   font-size: 48px;
   margin-bottom: 20px;
+}
+
+/* Utility class for hiding modal when not in use */
+.hidden {
+  display: none;
+}
+
+/* When both classes exist (modal + hidden), keep it hidden */
+.modal.hidden {
+  display: none;
+}
+
+/* Full-screen modal overlay */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+/* White panel that holds modal content */
+.modal-content {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.modal-content iframe {
+  width: 100%;
+  height: 500px;
+  border: 0;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.video-fallback {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  display: none;
+}
+
+.video-fallback a {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.video-fallback a:hover {
+  text-decoration: underline;
+}
+
+.modal-date {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: #efefef;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
 }
