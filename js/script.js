@@ -162,12 +162,17 @@ async function getNasaData(startDate, endDate) {
 	// `window.APP_CONFIG` comes from js/config.js.
 	// `?.` is optional chaining: it safely checks NASA_API_KEY without crashing
 	// if APP_CONFIG is missing.
-	const apiKey = window.APP_CONFIG?.NASA_API_KEY;
+	const configuredKey = window.APP_CONFIG?.NASA_API_KEY;
 
-	// If no key is set (or placeholder is still there), stop early.
-	if (!apiKey || apiKey === 'PASTE_YOUR_NASA_API_KEY_HERE') {
-		console.error('Add your NASA API key in js/config.js before fetching data.');
-		return;
+	// If no private key is configured, use NASA's public DEMO_KEY so
+	// graders can still run the project. (It may be rate-limited.)
+	const apiKey =
+		!configuredKey || configuredKey === 'PASTE_YOUR_NASA_API_KEY_HERE'
+			? 'DEMO_KEY'
+			: configuredKey;
+
+	if (apiKey === 'DEMO_KEY') {
+		console.warn('Using NASA DEMO_KEY. Add your own key in js/config.js for higher limits.');
 	}
 
 	// Template literal uses backticks and `${...}` to insert variables into a string.
